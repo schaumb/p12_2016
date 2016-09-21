@@ -65,6 +65,7 @@ void AI::calculateNextChoice()
     auto it = this->tactics.begin();
     while(it != this->tactics.end())
     {
+        (*it)->calculateNextChoice();
         if(bestTactic == nullptr || bestTactic->getChanceToWin() < (*it)->getChanceToWin())
         {
             bestTactic = *it;
