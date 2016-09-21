@@ -1,0 +1,24 @@
+
+
+A cél kõ-papír-olló-gyík-Spock játékot játszani képes program készítése. A beadott programnak 64 bites Windows 7 operációs rendszeren futathatónak kell lennie. Az alkalmazások egy a szervezõk által biztosított szerver alkalmazáson keresztül fognak egymás ellen játszani. Ehhez UDP alapú kommunikációra kell felkészíteni a programokat. A programot úgy kell elkészíteni, hogy az egy a csapat által tetszõleges elnevezésû szöveges fájlból olvassa ki a szükséges konfigurációs adatokat. A szöveges fájlban a következõ három adat szerepeljen a felsorolás sorrendjében és egymástól pontosvesszõvel elválasztva: a szerver IP címe, a szerver által figyelt port száma, az alkalmazás által figyelt port száma. A programot nem kell felkészíteni hálózati vagy üzeneti hibák kezelésére. Ezek elkerülésérõl a szervezõk gondoskodnak.
+
+A játékosok futtatás után várnak a szerver üzenetére. A szerver egy "0" üzenettel jelzi a játékosok felé, hogy megkezdõdött a mérkõzés és várja a játékosok elsõ lépését. A játékosok megküldik a szerver felé az elsõ választásukat, melyek a választástól függõen következõ számok valamelyike lehet:
+
+    1 – kõ,
+    2 – papír,
+    3 – olló,
+    4 – gyík,
+    5 – Spock.
+
+A lépésre a szerver válaszként visszaküldi az ellenfél által választott motívum kódszámát, szintén a fenti jelölést használva. Ezek után a játékosok ismét választanak és a választott motívumot a szervernek elküldik, majd a szerver az ellenfél választását visszaküldi, és így tovább. Ha a játéknak vége, akkor a szerver az ellenfél választásának küldésekor egy nullást karaktert fûz az üzenet végére (pl. "10"). Az üzenet hatására a játékos alkalmazások futása befejezõdik.
+
+A verseny állásáról a szerver nem tájékoztatja a játékosokat, azt minden játékosnak magának kell tárolnia.
+
+A mérkõzések hossza elõre nem megadott. A programot úgy kell elkészíteni, hogy az bármilyen hosszú mérkõzést képes legyen lejátszani.
+
+A játékosok rangsorolása 3 tényezõtõl függ:
+
+    A játékosok kiesés alapú, egyenlõ hosszú meccseket játszanak egymás ellen véletlenszerû válogatásban. Minden mérkõzésbõl a gyõztes jut tovább, ahol a továbbjutottak közül ismét véletlenszerûen válogatott meccsek lesznek, és így tovább.
+    Minden játékosnak játszania kell ugyanazon elõre meghatározott bemenetsorozat ellen. A bemenetet úgy kerül generálásra, hogy az ne véletlenszerû legyen.
+    Minden játékosnak vizsgálat alá kerül a beadott algoritmusa. Itt elsõsorban az algoritmus hatékonysági elemzésére és a kódtisztaság vizsgálatára kerül sor.
+

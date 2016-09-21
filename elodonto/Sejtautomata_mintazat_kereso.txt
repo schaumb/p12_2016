@@ -1,0 +1,50 @@
+
+
+Adott egy két dimenziós, négyzetrácsok által közrefogott cellákból álló sejtautomata. A sejtautomata kiinduló állapota ismert, továbbá a szabály, ami alapján a következõ állapot generálódik. A feladat az, hogy készítsetek egy programot, amely megállapítja egy adott, tetszõleges méretû (a sejtautomata méreteinél kisebb vagy egyenlõ) mintázatról, hogy tartalmazza-e a sejtautomata bizonyos számú iteráción belül, és ha igen, akkor hányadik iterációban, és pontosan hol.
+
+A programnak egy bemeneti fájlt kell feldolgoznia, amelynek felépítése lejjebb olvasható. A futás eredményét egy kimeneti fájlba kell írnia. A kész programot parancssorosan kell tudni hívni, az alábbi módon: program.exe <bemeneti_fajl.txt> <kimeneti_fajl.txt>
+
+A futás eredményét opcionálisan kiírhatja a konzolra is, de ez nem követelmény.
+
+Technikai információk:
+
+A sejtautomata kiinduló állapotát nulladik állapotnak nevezzük. A nulladik állapotban nincs szükség a megadott minta keresésére, azt csak az elsõ generált állapot után szükséges elvégezni. A sejtautomata dimenzióinak hossza 1 és 4096 közötti, azaz minimum 1, legfeljebb 16777216 cella alkotja. Az automata egyes sejtjei a következõ állapotokban lehetnek: élõ állapot, halott állapot. A keresett mintázat dimenzióinak hossza oldalhelyesen kisebbek vagy egyenlõk, mint a sejtautomata dimenzióinak hossza. A keresett mintázat három állapotból tevõdik össze a sejtautomatától eltérõen: élõ sejt, halott sejt, nem meghatározott. A nem meghatározott cellák értelem szerint értéküktõl függetlenül illenek a mintára.
+
+A generáló szabály a következõ számötösbõl áll össze, ahol az egyes számok a felsorolás sorrendjében, egymást vesszõvel elválasztva követik:
+
+    a vizsgált cella feletti sejthez tartozó súlyérték,
+    a vizsgált cellától jobbra található sejthez tartozó súlyérték,
+    a vizsgált cella alatti sejthez tartozó súlyérték,
+    a vizsgált cellától balra található sejthez tartozó súlyérték,
+    célsúly.
+
+Például „1,1,1,0,1”. Minden cella vizsgálatnál vegyük azoknak a súlyoknak az összegét, melyekhez tartozó cellákban található sejtek állapota élõ. Amennyiben az így kapott összeg nem kisebb a célsúlynál, úgy a vizsgált cella következõ értéke élõ lesz. Ellenkezõ esetben halott. Ha egy cellának valamelyik szomszédja hiányzik, azon szomszédot holtnak kell tekinteni. A fenti példában leírt szabály jelentése: Amennyiben bármelyik szomszéd, kivétel a baloldali, élõ sejtet tartalmaz, úgy a következõ állapotban élõ lesz a vizsgált sejt, ellenkezõ esetben halott. A súlyok és a cél súly egész számok (vesszõvel elválasztva), minimum és maximum értékük +/- 2^15.
+
+A sejtautomata kiinduló állapota nullák és egyesekbõl álló, egyforma hosszú sorokból épül fel. Ahol egyes található, ott élõ sejt van, ahol nullás, ott halott sejt van. A sejtautomata kiinduló állapotát üres sor követi a bemeneti fájlban.
+A keresett minta nullákból (halott sejt), egyesekbõl (élõ sejt) és szóközökbõl (nem meghatározott sejt) álló, egyforma hosszú sorokból épül fel. A mintát üres sor követi a bemeneti fájlban.
+A maximálisan vizsgálandó iterációk száma minimum 1, legfeljebb 2^32-1.
+
+A bemeneti fájl tartalma tehát:
+
+"Generáló szabály (1 sor)
+
+(üres sor)
+
+Sejtautomata kiinduló állapot (n sor, m karakter hosszú)
+
+(üres sor)
+
+Keresett minta (i sor, j karakter hosszú, i<=n, j<=m)
+
+(üres sor)
+
+Maximálisan vizsgálandó iterációk száma"
+
+A kimeneti fájlba az alábbi információkat kell írni:
+
+<állapot sorszám>,<X>,<Y>
+
+Az állapot sorszámhoz annak az állapotnak a sorszámát kell írni, ahol a minta elõször illeszkedett a sejtautomatára. Ha nincs illeszkedés, legyen a sorszám értéke 0.
+Az X és Y adja meg azt a koordinátát, ahol a keresett minta illeszkedik az automatára. Az origó legyen az automata bal felsõ sarka és a mintának a bal felsõ sarka legyen az X és Y által meghatározott pozíción. Ha nincs illeszkedés, X és Y értéke legyen 0.
+
+A rangsorolás során figyelembe vesszük az elkészült algoritmus hatékonyságát és a forráskód tisztaságát.

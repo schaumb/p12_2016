@@ -1,0 +1,8 @@
+
+
+A feladat képpontokban adott síkbeli térképek elhelyezése négyzethálón úgy, hogy a térkép által érintett négyzetek száma minimális legyen. A bemeneti térképek png formátumú képfájlok, ahol a tiszta fekete szín jelzi a szárazföldet. A bemeneti fájlok neve mutatja, hogy az adott térképet mekkora oldalhosszúságú négyzetekbõl felépülõ hálón kell elhelyezni. A háló egyes négyzeteinek mérete képpontban értendõ és a négyzetek szünet nélkül követik egymást a végtelen nagyságú négyzethálón. Ha egy négyzetre a térkép csak egy képpontja is rálóg, akkor az a négyzet felhasználtnak tekintendõ. A cél, hogy minél kevesebb négyzeten elférjen a térkép szárazföldi része. A program kimenetként szolgáltasson egy olyan képet, amin az elhelyezendõ térkép látható a négyzethálós síkon a megfelelõ (optimális) pozícióban.
+Fontos!
+
+A térképet csak mozgatni lehet a tengelyek mentén. Mivel a bemeneti képek rasztergrafikusak, így a forgatás és nagyítás nem egyértelmûsíthetõ, azok kimenete megvalósításonként eltérhet, ami kihatással lehet a feladat kimenetére.
+
+A rangsorolás során elsõsorban a felhasznált négyzetek száma kerül számításba, másodsorban az elkészült algoritmus hatékonysága és a forráskód tisztasága.

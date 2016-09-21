@@ -1,0 +1,13 @@
+
+
+Szöveges formában adott amõba játszmák végeredménye. A feladat olyan program készítése mely a bemeneti fájlok alapján eldönti, hogy a játékot szabályosan játszották e és hogy mi lett a játék végeredménye.
+
+A játék szabályai a következõk:
+
+A játékot két játékos játssza egy meghatározott méretû négyzethálós pályán. Az egyik játékos az „O”, a másik játékos az „X” szimbólummal van. A játékosok egymás után helyeznek el egy szimbólumot egy tetszés szerinti még üres mezõn. Ha a játék során kialakul olyan állás, hogy valamely játékos szimbólumából egymás mellett (vízszintesen, függõlegesen vagy átlósan) öt darab található, a mérkõzés véget ért és a sorban öt szimbólummal rendelkezõ játékos nyert.
+
+A bemenet pontosvesszõvel tagolt csv fájlok, ahol minden mezõ vagy „X” vagy „O” karaktert tartalmazhat. Ha az adott mezõre egyik játékos se helyezett el szimbólumot, akkor annak a mezõnek a tartalma üres.
+
+A program kimenetként állítson elõ olyan szöveges állományt, amely tájékoztat a bemenet helyességérõl és a játék végeredményérõl.
+
+A rangsorolás során figyelembe vesszük az elkészült algoritmus hatékonyságát és a kód tisztaságát.
