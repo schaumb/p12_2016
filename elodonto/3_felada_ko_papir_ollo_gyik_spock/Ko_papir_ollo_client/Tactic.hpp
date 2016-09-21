@@ -13,8 +13,8 @@ public:
     virtual int getChanceToWin()=0;
     virtual short int getChoice();
 
-    virtual void addChoices(short int a, short int b);
-    virtual void markAsUsed();
+    virtual void addChoices(short int a, short int b) {};
+    virtual void markAsUsed() {};
 
     virtual void calculateNextChoice()=0;
 

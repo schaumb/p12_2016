@@ -19,5 +19,3 @@ int OnlyOne::getChanceToWin()
 {
     return -1000;
 }
-
-void OnlyOne::calculateNextChoice() {}

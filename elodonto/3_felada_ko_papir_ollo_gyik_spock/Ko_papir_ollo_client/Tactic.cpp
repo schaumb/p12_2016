@@ -8,13 +8,3 @@ short int Tactic::getChoice()
 {
     return this->myChoice;
 }
-
-void Tactic::addChoices(short int a, short int b)
-{
-
-}
-
-void Tactic::markAsUsed()
-{
-
-}

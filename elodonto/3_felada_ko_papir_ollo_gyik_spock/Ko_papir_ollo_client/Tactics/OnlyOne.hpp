@@ -13,7 +13,7 @@ public:
 
     int getChanceToWin();
 
-    void calculateNextChoice();
+    void calculateNextChoice() {};
 };
 
 
