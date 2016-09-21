@@ -4,9 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "../NetworkMagic.hpp"
-#include <random>
-#include <chrono>
+#include "NetworkMagic.hpp"
+#include "AI.hpp"
 
 namespace patch
 {
@@ -18,48 +17,51 @@ namespace patch
     }
 }
 
+
 int main(int argc, char **argv)
 {
     u_short            ClientPort = 46150;
 
     unsigned long ServerAddress, SenderAddress = 0;
     u_short ServerPort, SenderPort = 0;
-    std::string seged, name;
+    std::string str, name;
 
     std::ifstream config("config.txt");
-    config >> name;
+    config >> name; //TODO végső kódba ez nem kell
     config >> ClientPort;
 
-    config >> seged;
-    ServerAddress = inet_addr(seged.c_str());
+    config >> str;
+    ServerAddress = inet_addr(str.c_str());
     config >> ServerPort;
 
     config.close();
 
     UdpSocket ClientSocket(ClientPort);
 
-    ClientSocket.sendTo(ServerAddress, ServerPort, name);
+    ClientSocket.sendTo(ServerAddress, ServerPort, name); //TODO végső kódba ez nem kell
 
-    unsigned seed1 = std::chrono::system_clock::now().time_since_epoch().count();
-
-    seged = ClientSocket.receiveFrom(SenderAddress, SenderPort);
-    if(SenderAddress == ServerAddress && SenderPort == ServerPort && seged == "0")
+    str = ClientSocket.receiveFrom(SenderAddress, SenderPort);
+    if(SenderAddress == ServerAddress && SenderPort == ServerPort && str == "0")
     {
-        seged = "";
+        str = "";
+        AI Sanyi;
+        std::ofstream log("log.txt", std::ofstream::app);
 
-        std::default_random_engine generator(seed1);
-        std::uniform_int_distribution<int> distribution(1,5);
-        int choice;
-
-        while(seged.size() < 2)
+        while(str.size() < 2)
         {
-            choice = distribution(generator);
-            ClientSocket.sendTo(ServerAddress, ServerPort, patch::to_string(choice));
-            std::cout << "Sajat valasztas: " << choice;
+            Sanyi.calculateNextChoice();
 
-            seged = ClientSocket.receiveFromTimeout(SenderAddress, SenderPort, 300);
-            std::cout << " Ellenfel vlasztasa: " << seged << std::endl;
+            ClientSocket.sendTo(ServerAddress, ServerPort, patch::to_string(Sanyi.getChoice()));
+            std::cout << "Sajat valasztas: " << Sanyi.getChoice();
+
+            str = ClientSocket.receiveFromTimeout(SenderAddress, SenderPort, 300);
+            std::cout << " Ellenfel vlasztasa: " << str << std::endl;
+
+            Sanyi.setEnemyChoice(str[0] - '0');
         }
+
+        log << Sanyi;
+        log.close();
 
     }
     else
