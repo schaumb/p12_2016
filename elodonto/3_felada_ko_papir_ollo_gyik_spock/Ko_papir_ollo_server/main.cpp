@@ -3,8 +3,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "../RPSLS.hpp"
-#include "../NetworkMagic.hpp"
+#include "../Ko_papir_ollo_client/RPSLS.hpp"
+#include "../Ko_papir_ollo_client/NetworkMagic.hpp"
 #include <list>
 
 
@@ -26,7 +26,6 @@ int main(int argc, char **argv)
     {
         unsigned long Player1Address, Player2Address, SenderAddress;
         u_short Player1Port, Player2Port, SenderPort;
-        std::list<short int> Player1Choices, Player2Choices;
         std::string Player1Name = "Player1", Player2Name = "Player2";
         std::string lastMessage= "";
 
@@ -52,12 +51,13 @@ int main(int argc, char **argv)
             continue;
         }
 
+        RPSLS currentGame(Player1Name, Player2Name);
 
         ServerSocket.sendTo(Player1Address, Player1Port, "0");
         ServerSocket.sendTo(Player2Address, Player2Port, "0");
 
         std::string Player1Choice = "", Player2Choice = "";
-        long int i = 0, Player1Wins = 0, Player1Draws = 0, Player1Losses = 0, Player2Wins = 0, Player2Draws = 0, Player2Losses = 0;
+        long int i = 0;
         while (i < rounds && lastMessage != "timeout" && lastMessage != "error")
         {
             Player1Choice = "";
@@ -90,19 +90,16 @@ int main(int argc, char **argv)
                 continue;
             }
 
-            int winner = RPSLS::getWinner(Player1Choice[0] - '0', Player2Choice[0] - '0');
+            currentGame.addChoices(Player1Choice[0] - '0', Player2Choice[0] - '0');
             std::cout << i << ". kor lement. ";
 
-            switch(winner)
+            switch(currentGame.getLastWinner())
             {
-                case 0: std::cout << "Dontetlen!" << std::endl; Player1Draws++; Player2Draws++; break;
-                case 1: std::cout << Player1Name << ". a nyertes!" << std::endl; Player1Wins++; Player2Losses++; break;
-                case 2: std::cout << Player2Name << ". a nyertes!" << std::endl; Player2Wins++; Player1Losses++; break;
+                case 0: std::cout << "Dontetlen!" << std::endl; break;
+                case 1: std::cout << Player1Name << ". a nyertes!" << std::endl; break;
+                case 2: std::cout << Player2Name << ". a nyertes!" << std::endl; break;
                 default: std::cerr << "Baj van." << std::endl;
             }
-
-            Player1Choices.push_back(Player1Choice[0] - '0');
-            Player2Choices.push_back(Player2Choice[0] - '0');
 
             if (i == rounds - 1) {
                 Player1Choice += "0";
@@ -117,47 +114,15 @@ int main(int argc, char **argv)
 
         if(i == rounds)
         {
-            log << Player1Name << std::endl;
-            log << Player1Address << std::endl;
-            log << Player1Port << std::endl;
-            log << Player1Wins << std::endl;
-            log << Player1Draws << std::endl;
-            log << Player1Losses << std::endl;
-            log << Player1Choices.size() << std::endl;
-            auto it = Player1Choices.begin();
-            while(it != Player1Choices.end())
-            {
-                log << *it << " ";
-
-                it++;
-            }
-            log << std::endl;
-
-            log << Player2Name << std::endl;
-            log << Player2Address << std::endl;
-            log << Player2Port << std::endl;
-            log << Player2Wins << std::endl;
-            log << Player2Draws << std::endl;
-            log << Player2Losses << std::endl;
-            log << Player2Choices.size() << std::endl;
-            auto it2 = Player2Choices.begin();
-            while(it2 != Player2Choices.end())
-            {
-                log << *it2 << " ";
-
-                it2++;
-            }
-            log << std::endl;
-
-            log << std::endl;
+            log << currentGame;
             log.flush();
 
-            if(Player1Wins > Player2Wins)
-                std::cout << Player1Name << " nyert!" << std::endl;
-            else if(Player1Wins < Player2Wins)
-                std::cout << Player2Name << " nyert!" << std::endl;
-            else
-                std::cout << "Dontetlen lett a jatek!" << std::endl;
+            switch(currentGame.getMatchWinner())
+            {
+                case 0: std::cout << "Dontetlen lett a jatek!" << std::endl; break;
+                case 1: std::cout << Player1Name << " nyert!" << std::endl; break;
+                case 2: std::cout << Player2Name << " nyert!" << std::endl; break;
+            }
 
             std::cout << "Uj jatek!" << std::endl;
         }
