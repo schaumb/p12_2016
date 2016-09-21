@@ -20,14 +20,12 @@ namespace patch
 
 int main(int argc, char **argv)
 {
-    u_short            ClientPort = 46150;
 
     unsigned long ServerAddress, SenderAddress = 0;
-    u_short ServerPort, SenderPort = 0;
-    std::string str, name;
+    u_short ServerPort, SenderPort = 0, ClientPort = 46150;
+    std::string str, name = "Sanyi", tacticName = "";
 
     std::ifstream config("config.txt");
-    config >> name; //TODO végső kódba ez nem kell
     config >> ClientPort;
 
     config >> str;
@@ -35,6 +33,35 @@ int main(int argc, char **argv)
     config >> ServerPort;
 
     config.close();
+
+    bool NO_LOG = false;
+    int i = 1;
+    while(i < argc)
+    {
+        if(strcmp(argv[i], "-no-log") == 0)
+        {
+            NO_LOG = true;
+            i++;
+        }
+        else if(strcmp(argv[i], "-name") == 0)
+        {
+            name = argv[i + 1];
+            i += 2;
+        }
+        else if(strcmp(argv[i], "-default-port") == 0)
+        {
+            ClientPort = 46150;
+            i++;
+        }
+        else if(strcmp(argv[i], "-tactic") == 0)
+        {
+            tacticName = argv[i + 1];
+            i += 2;
+        }
+        else
+            i++;
+    }
+
 
     UdpSocket ClientSocket(ClientPort);
 
@@ -44,8 +71,7 @@ int main(int argc, char **argv)
     if(SenderAddress == ServerAddress && SenderPort == ServerPort && str == "0")
     {
         str = "";
-        AI Sanyi;
-        std::ofstream log("log.txt", std::ofstream::app);
+        AI Sanyi(tacticName);
 
         while(str.size() < 2)
         {
@@ -60,8 +86,12 @@ int main(int argc, char **argv)
             Sanyi.setEnemyChoice(str[0] - '0');
         }
 
-        log << Sanyi;
-        log.close();
+        if(!NO_LOG)
+        {
+            std::ofstream log("log.txt", std::ofstream::app);
+            log << Sanyi;
+            log.close();
+        }
 
     }
     else

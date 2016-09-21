@@ -4,6 +4,16 @@
 
 #include "AI.hpp"
 
+AI::AI() {};
+
+AI::AI(std::string t)
+{
+    if(t == "")
+    {
+        this->AI();
+    }
+}
+
 short int AI::getChoice() const
 {
     return this->myChoice;
