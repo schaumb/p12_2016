@@ -27,3 +27,7 @@
 *.exe
 *.out
 *.app
+
+.idea/
+elodonto/3_felada_ko_papir_ollo_gyik_spock/Ko_papir_ollo_client/Bin/Release/Komonyi.zip
+elodonto/3_felada_ko_papir_ollo_gyik_spock/Ko_papir_ollo_client/Bin/Release/Release.rar
