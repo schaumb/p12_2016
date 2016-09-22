@@ -11,10 +11,10 @@ class CellularAutomataFinder
     std::array<std::int32_t, 5> rule;
     boost::dynamic_bitset<> cellulars;
     boost::dynamic_bitset<> flippedCellulars;
-    int width, height;
+    std::size_t width, height;
     boost::dynamic_bitset<> pattern1s;
     boost::dynamic_bitset<> pattern0s;
-    int patternWidth, patternHeight;
+    std::size_t patternWidth, patternHeight;
     std::uint32_t maxIter;
     
     

@@ -31,7 +31,7 @@ void CellularAutomataFinder::readCellulars(std::istream& file)
     width = result.size();
     
     std::string tmp;
-    while(std::getline(file, tmp) && (int)tmp.size() >= width)
+    while(std::getline(file, tmp) && tmp.size() >= width)
     {
         boost::trim(tmp);
         result = result + tmp;
@@ -57,7 +57,7 @@ void CellularAutomataFinder::readPattern(std::istream& file)
     patternHeight = 0;
     pattern1s.resize(cellulars.size());
     pattern0s.resize(cellulars.size());
-    int i = 0;
+    int patternIndex = 0;
     do
     {
         ++patternHeight;
@@ -65,14 +65,14 @@ void CellularAutomataFinder::readPattern(std::istream& file)
         {
             if(c == '\r') continue;
             if(c == '1')
-                pattern1s[i] = true;
+                pattern1s[patternIndex] = true;
             if(c == '0')
-                pattern0s[i] = true;
-            ++i;
+                pattern0s[patternIndex] = true;
+            ++patternIndex;
         }
-        if(i % width != 0)
+        if(patternIndex % width != 0)
         {
-            i += width - (i % width);        
+            patternIndex += width - (patternIndex % width);        
         }
         
         std::getline(file, line);
@@ -87,47 +87,59 @@ std::string CellularAutomataFinder::find()
     for(std::uint32_t t = 0; t < maxIter; ++t)
     {
         boost::dynamic_bitset<> nextCellulars(cellulars.size());
-        for(int i = 0; i < height; ++i)
+        boost::dynamic_bitset<> nextFlippedCellulars(cellulars.size());
+        
+        #pragma omp parallel for if(width > 256)
+        for(std::size_t i = 0; i < height; ++i)
         {
-            for(int j = 0; j < width; ++j)
+            for(std::size_t j = 0; j < width; ++j)
             {
                 nextCellulars[i * width + j] = nextCellularAt(i, j);
+                nextFlippedCellulars[i * width + j] = !nextCellulars[i * width + j];
             }
         }
         cellulars = std::move(nextCellulars);
-        flippedCellulars = ~cellulars;
-        
+        flippedCellulars = std::move(nextFlippedCellulars);
+
         std::string result = findPattern();
+
+        flippedCellulars.clear();
         
         if(!result.empty()) return std::to_string(t + 1) + "," + result;
-        
-        flippedCellulars.clear();
     }
     return "0,0,0";
 }
 
 std::string CellularAutomataFinder::findPattern() const
-{
-    boost::dynamic_bitset<> pattern1sCopy = pattern1s;
-    boost::dynamic_bitset<> pattern0sCopy = pattern0s;
+{    
+    std::string result;
     
-    for(int i = 0; i <= height - patternHeight; ++i)
+    #pragma omp parallel
+    for(std::size_t i = 0; i <= height - patternHeight; ++i)
     {
-        for(int j = 0; j <= width - patternWidth; ++j)
+        if(!result.empty())
+        {
+            continue;
+        }
+        
+        boost::dynamic_bitset<> pattern1sCopy = pattern1s << (i * width);
+        boost::dynamic_bitset<> pattern0sCopy = pattern0s << (i * width);
+        for(std::size_t j = 0; j <= width - patternWidth && result.empty(); ++j)
         {
             if((cellulars & pattern1sCopy) == pattern1sCopy &&
                 (flippedCellulars & pattern0sCopy) == pattern0sCopy)
             {
-                return std::to_string(i) + "," + std::to_string(j);
+                #pragma omp critical
+                {
+                    result = std::to_string(i) + "," + std::to_string(j);
+                }
             }
             
             pattern1sCopy <<= 1;
             pattern0sCopy <<= 1;
         }
-        pattern1sCopy <<= patternWidth - 1;
-        pattern0sCopy <<= patternWidth - 1;
     }
-    return "";
+    return result;
 }
 
 bool CellularAutomataFinder::nextCellularAt(int x, int y) const
