@@ -31,13 +31,7 @@ class FiveInARowChecker
     bool isValidIndex(int x, int y) const;
 
 public:
-    FiveInARowChecker(std::istream&& file)
-        : fields( readFieldsFromFile(std::move(file)) )
-        , countOfElements{ {FieldType::X, 0}, {FieldType::O, 0} }
-        , winner{ FieldType::UNKNOWN }
-        , forceEnd{ }
-    {}
-
+    FiveInARowChecker(std::istream&& file);
     std::string getMessage();
 };
 

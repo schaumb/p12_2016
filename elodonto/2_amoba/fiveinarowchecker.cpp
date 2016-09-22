@@ -1,6 +1,13 @@
 #include "fiveinarowchecker.h"
 #include <algorithm>
 
+FiveInARowChecker::FiveInARowChecker(std::istream&& file)
+        : fields( readFieldsFromFile(std::move(file)) )
+        , countOfElements{ {FieldType::X, 0}, {FieldType::O, 0} }
+        , winner{ FieldType::UNKNOWN }
+        , forceEnd{ }
+{}
+    
 std::vector<std::vector<FiveInARowChecker::FieldType>> FiveInARowChecker::readFieldsFromFile(std::istream&& file)
 {
     std::vector<std::vector<FieldType>> result;
