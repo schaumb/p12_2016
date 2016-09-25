@@ -1,25 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
-#include <iterator>
-#include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <functional>
+#include "fiveinarowchecker.h"
 
-struct Field
-{
-    enum class FieldType : char { X = 'X', O = 'O', UNKNOWN = ' ' };
-
-    FieldType type = FieldType::UNKNOWN;
-    std::size_t mainDiagonal = 0;
-    std::size_t vertical = 0;
-    std::size_t antidiagonal = 0;
-    std::size_t horizontal = 0;
-};
-
-template<class IstreamType>
-std::vector<std::string> readLines(IstreamType&& input, char delimiter = '\n')
+std::vector<std::string> readTokens(std::istream& input, char delimiter)
 {
     std::vector<std::string> result;
     std::string tmp;
@@ -30,64 +13,17 @@ std::vector<std::string> readLines(IstreamType&& input, char delimiter = '\n')
     return result;
 }
 
-std::string removeExtension(const std::string& originalFileName)
+int main(int argc, char* argv[])
 {
-    std::size_t pos = originalFileName.find_last_of('.');
-    return pos == std::string::npos ? originalFileName : originalFileName.substr(0, pos);
-}
-
-int main()
-{
-    for(const std::string& fileName : readLines(std::cin))
+    std::cerr << "Varakozas ujsor karakterrel elvalasztott fajlnevekre a standard inputon, EOF-ig" << std::endl;
+    for(const std::string& fileName : readTokens(std::cin, '\n'))
     {
-        std::unordered_map<char, std::size_t> countOfElements { {'X', 0}, {'O', 0} };
+        std::string message = FiveInARowChecker(std::ifstream(fileName)).getMessage();
 
-        Field::FieldType winner = Field::FieldType::UNKNOWN;
-        std::unordered_set<std::size_t> possibleLastMoveIndices;
+        // remove file extension (.csv) and add a text (.txt) suffix
+        std::string outputFileName = fileName.substr(0, fileName.find_last_of('.')) + ".txt";
 
-        std::vector<Field> fields;
-        std::size_t sizeY = 0;
-
-        for (const std::string& line : readLines(std::ifstream(fileName)))
-        {
-            for(const std::string& value : readLines(std::istringstream(line + ";"), ';'))
-            {
-                Field field;
-                switch(value.c_str()[0]) {
-                case 'X': case 'O':
-                    ++countOfElements[value.c_str()[0]];
-                    field.type = Field::FieldType(value.c_str()[0]);
-
-                    if(sizeY != 0) { // has previous line
-
-
-                    }
-                }
-                fields.push_back(field);
-            }
-
-            if(sizeY == 0)
-            {
-                sizeY = fields.size();
-            }
-        }
-        std::ofstream output_file (removeExtension(fileName) + ".txt");
-
-        if(possibleLastMoveIndices.empty() || winner == Field::FieldType::UNKNOWN)
-        {
-            output_file << "hibas jatek - nincs/nem egyertelmu nyero allapot" << std::endl;
-        }
-        else if(countOfOs != countOfXs &&
-            ((winner == Field::FieldType::X && countOfElements['X'] != countOfElements['O'] + 1) ||
-            (winner == Field::FieldType::O && countOfElements['O'] != countOfElements['X'] + 1)))
-        {
-            output_file << "hibas jatek - nem megfelelo mennyisegu elem a jatekban" << std::endl;
-        }
-        else
-        {
-            output_file << "A jatek megfelelo, a nyertes: " << static_cast<char>(winner) << std::endl;
-        }
+        std::ofstream(outputFileName) << message << std::endl;
+        std::cerr << fileName << " kimenete (" << outputFileName << "): " << message << std::endl;
     }
 }
-
-
