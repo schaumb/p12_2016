@@ -1,8 +1,10 @@
 <?php
 
 include_once("config.php");
+include_once("Db/Database.php");
 include_once("Router/Router.php");
 
+$DATABASE = new Database();
 $ROUTER = new Router();
 
 $controllerPHPs = scandir("Controller");
