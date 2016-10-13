@@ -2,7 +2,7 @@
 
 include_once("config.php");
 include_once("Db/Database.php");
-include_once("Router/Router.php");
+include_once("HTTP/Router.php");
 
 $DATABASE = new Database();
 $ROUTER = new Router();
