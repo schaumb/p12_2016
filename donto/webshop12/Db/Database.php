@@ -15,4 +15,10 @@ class Database
             echo 'Connection failed: ' . $e->getMessage();
         }
     }
+
+    public function findAll($entityName)
+    {
+        $query = $this->connection->query("SELECT * FROM " . MYSQL_DATABASE_NAME . "." . $entityName);
+        return $query;
+    }
 }
