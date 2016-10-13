@@ -4,7 +4,7 @@ $content = "";
 
 foreach ($products as $product)
 {
-    $content .= "<div class=\"productCard\">" . $product["ProductName"] . "</div>\n";
+    $content .= "<div class=\"productCard\">" . $product->getProductName() . "</div>\n";
 }
 
 

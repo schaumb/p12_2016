@@ -14,6 +14,7 @@ class Product implements Entity
 
     protected $Image;
 
+    protected $category;
 
 
     public static function createFromArray($arr)
@@ -27,6 +28,7 @@ class Product implements Entity
             if(isset($arr["Description"])) $product->setDescription($arr["Description"]);
             if(isset($arr["Price"])) $product->setPrice($arr["Price"]);
             if(isset($arr["Image"])) $product->setImage($arr["Image"]);
+            if(isset($arr["category"])) $product->setCategory($arr["category"]);
         }
 
         return $product;
@@ -37,10 +39,10 @@ class Product implements Entity
         return "CREATE TABLE webshop12.Product
                 (
                     ProductId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-                    ProductName VARCHAR(255),
-                    Description TEXT,
+                    ProductName VARCHAR(255) COLLATE utf8_unicode_ci,
+                    Description TEXT COLLATE utf8_unicode_ci,
                     Price INT,
-                    Image VARCHAR(255)
+                    Image VARCHAR(255) COLLATE utf8_unicode_ci
                 );";
     }
 
@@ -102,6 +104,18 @@ class Product implements Entity
     public function getImage()
     {
         return $this->Image;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
     }
 
 }
