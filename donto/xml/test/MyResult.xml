@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Used rule: EQUAL -->
+<Root>
+	<!-- Used rule: ADDITIVE -->
+	<A A1="1">
+		<B B1="2"/>
+		<B B1="3"/>
+	</A>
+	<A A1="2" A2="3" A3="4">
+		<B B1="1"/>
+		<B B1="2"/>
+	</A>
+	<!-- Used rule: GREATER -->
+	<C C1="4" C2="5" C3="6">
+		<!-- Used rule: ADDITIVE -->
+		<D D1="2"/>
+		<D D1="3"/>
+		<D D1="4"/>
+		<D D1="5"/>
+	</C>
+	<!-- Used rule: LESS -->
+	<E E1="1" E2="2" E3="3">
+		<!-- Used rule: ADDITIVE -->
+		<F F1="2"/>
+		<F F1="3"/>
+		<F F1="4"/>
+		<F F1="5"/>
+	</E>
+	<!-- Used rule: EQUAL -->
+	<G G1="1" G2="2">
+		<!-- Used rule: ADDITIVE -->
+		<H H1="2"/>
+		<H H1="3"/>
+		<H H1="4"/>
+		<H H1="5"/>
+		<H H1="4"/>
+		<H H1="5"/>
+	</G>
+</Root>

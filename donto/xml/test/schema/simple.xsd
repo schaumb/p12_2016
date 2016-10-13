@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:complexType name="AType">
+        <xs:sequence>
+            <xs:element name="B" type="BType"  maxOccurs="unbounded"/>  
+        </xs:sequence>
+        <xs:attribute name="A1" type="xs:string"/>
+        <xs:attribute name="A2" type="xs:string"/>
+        <xs:attribute name="A3" type="xs:string"/>
+    </xs:complexType>    
+
+    <xs:complexType name="BType">
+          <xs:attribute name="B1" type="xs:string"/>
+          <xs:attribute name="B2" type="xs:string"/>
+          <xs:attribute name="B3" type="xs:string"/>
+    </xs:complexType>    
+
+    <xs:complexType name="CType">
+        <xs:sequence>
+            <xs:element name="D" type="DType"  maxOccurs="unbounded"/>  
+        </xs:sequence>
+        <xs:attribute name="C1" type="xs:string"/>
+        <xs:attribute name="C2" type="xs:string"/>
+        <xs:attribute name="C3" type="xs:string"/>
+    </xs:complexType>    
+
+    <xs:complexType name="DType">
+          <xs:attribute name="D1" type="xs:string"/>
+          <xs:attribute name="D2" type="xs:string"/>
+          <xs:attribute name="D3" type="xs:string"/>
+    </xs:complexType>    
+
+
+    <xs:complexType name="EType">
+        <xs:sequence>
+            <xs:element name="F" type="FType"  maxOccurs="unbounded"/>  
+        </xs:sequence>
+        <xs:attribute name="E1" type="xs:string"/>
+        <xs:attribute name="E2" type="xs:string"/>
+        <xs:attribute name="E3" type="xs:string"/>
+    </xs:complexType>    
+
+    <xs:complexType name="FType">
+          <xs:attribute name="F1" type="xs:string"/>
+          <xs:attribute name="F2" type="xs:string"/>
+          <xs:attribute name="F3" type="xs:string"/>
+    </xs:complexType>    
+
+
+    <xs:complexType name="GType">
+        <xs:sequence>
+            <xs:element name="H" type="HType"  maxOccurs="unbounded"/>  
+        </xs:sequence>
+        <xs:attribute name="G1" type="xs:string"/>
+        <xs:attribute name="G2" type="xs:string"/>
+        <xs:attribute name="G3" type="xs:string"/>
+    </xs:complexType>    
+
+    <xs:complexType name="HType">
+          <xs:attribute name="H1" type="xs:string"/>
+          <xs:attribute name="H2" type="xs:string"/>
+          <xs:attribute name="H3" type="xs:string"/>
+    </xs:complexType>    
+
+
+    <xs:complexType name="RootType">
+        <xs:sequence>
+            <xs:element name="A" type="AType"  maxOccurs="unbounded"/>  
+            <xs:element name="C" type="CType" maxOccurs="unbounded"/>
+            <xs:element name="E" type="EType" maxOccurs="unbounded"/>
+            <xs:element name="G" type="GType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>    
+
+    <xs:element name="Root" type="RootType"/>
+
+</xs:schema>
