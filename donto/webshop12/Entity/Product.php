@@ -1,6 +1,8 @@
 <?php
 
-class Product
+include_once("Entity.php");
+
+class Product implements Entity
 {
     private $ProductId;
 
@@ -28,6 +30,18 @@ class Product
         }
 
         return $product;
+    }
+
+    public function getDatabaseTableDefinition()
+    {
+        return "CREATE TABLE webshop12.Product
+                (
+                    ProductId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+                    ProductName VARCHAR(255),
+                    Description TEXT,
+                    Price INT,
+                    Image VARCHAR(255)
+                );";
     }
 
     public function setProductId($productId)
