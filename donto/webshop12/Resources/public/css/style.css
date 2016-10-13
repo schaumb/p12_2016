@@ -1,0 +1,54 @@
+body
+{
+    margin: 0;
+}
+
+#menu-container
+{
+    position: fixed;
+    width: 15%;
+    height:100%;
+    padding: 5px;
+    float: left;
+    min-width: 100px;
+}
+
+#content-container
+{
+    margin-left: 17%;
+    width: 83%
+}
+
+#menu
+{
+    border: 1px solid black;
+    text-align: center;
+    min-height: 300px;
+}
+
+.productCard
+{
+    width:100px;
+    height:150px;
+    border: 1px solid black;
+    float:left;
+    margin:10px;
+    padding:10px;
+}
+
+@media screen and ( max-width: 600px ){
+    #menu-container
+    {
+        position: fixed;
+        width: 100px;
+        height:100%;
+        padding: 5px;
+        float: left;
+        min-width: 100px;
+    }
+
+    #content-container
+    {
+        margin-left: 100px;
+    }
+}
