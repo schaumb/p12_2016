@@ -1,0 +1,5 @@
+# A comment
+<A> ADDITIVE # this line is optional; the ADDITVE strategy is applied by default.
+<C C1 C2 C3> GREATER 
+<E E1 E2 E3> LESS  
+<G G2> EQUALS  #Another comment.

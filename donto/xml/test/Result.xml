@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+	<!-- Additive Result -->
+	<A A1="1">
+	    <B B1="2"/>
+	    <B B1="3"/>
+	</A>
+
+	<A A1="2" A2="3" A3="4">
+		<B B1="1"/>
+		<B B1="2"/>
+	</A>
+
+	<!-- Greater Result  from F2-->
+	<C C1="1" C2="2" C3="3">
+		<!-- From F1 -->
+	    <D D1="2"/>
+	    <D D1="3"/>
+	    <!-- From F2 -->
+  		<D D1="4"/>
+		<D D1="5"/>
+	</C>
+
+	<!-- LESS Result from E1-->
+	<E E1="1" E2="2" E3="3">
+		<!-- From F1 -->
+	    <F F1="2"/>
+	    <F F1="3"/>
+	    <!-- From F2 -->
+  		<F F1="4"/>
+		<F F1="5"/>
+	</E>
+
+	<!-- EQUALS  Result-->
+	<G G1="1">
+		<!-- From F1 -->
+	    <H H1="2"/>
+	    <H H1="3"/>	    
+	    <!-- From F2 -->
+  	    <H H1="4"/>
+	    <H H1="5"/>
+	</G>
+
+</Root>
