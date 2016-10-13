@@ -2,7 +2,9 @@
 
 $ROUTER->addRoute("/", "indexAction");
 
-function indexAction($request)
+function indexAction($request, Database &$db)
 {
-    echo "Haha";
+    $products = $db->findAll("Product");
+
+    var_dump($products->fetchAll());
 }

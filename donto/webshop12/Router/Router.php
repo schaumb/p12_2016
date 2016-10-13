@@ -23,14 +23,14 @@ class Router
         return $this;
     }
     
-    public function execAction()
+    public function execAction(&$db)
     {
         $currentRoute = $this->request->getRoute();
         foreach ($this->routes as $route)
         {
             if($route["route"] == $currentRoute )
             {
-                $route["controllerFunction"]($this->request);
+                $route["controllerFunction"]($this->request, $db);
                 return;
             }
         }

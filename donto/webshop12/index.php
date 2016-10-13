@@ -14,4 +14,4 @@ foreach ($controllerPHPs as $controllerPHP)
         include_once("Controller/" . $controllerPHP);
 }
 
-$ROUTER->execAction();
+$ROUTER->execAction($DATABASE);
