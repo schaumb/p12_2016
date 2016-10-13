@@ -8,7 +8,7 @@ class Database
     {
         try
         {
-            $this->connection = $MYSQL = new PDO("mysql:=" . MYSQL_DATABASE_NAME . ";host=" . MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD);
+            $this->connection = $MYSQL = new PDO("mysql:=" . MYSQL_DATABASE_NAME . ";host=" . MYSQL_HOST . ";charset=utf8;", MYSQL_USER, MYSQL_PASSWORD);
         }
         catch (PDOException $e)
         {
