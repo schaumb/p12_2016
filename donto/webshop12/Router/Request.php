@@ -13,7 +13,8 @@ class Request
     
     public function getRoute()
     {
-        $route = substr($this->requestUri, strpos($this->requestUri, ".php") + 4);
+        //$route = substr($this->requestUri, strpos(substr($this->requestUri, 0, -(strlen($this->queryString) + 1)), ".php") + 4);
+        $route = $this->requestUri;
 
         if(strlen($route) === 0)
             $route = "/";
