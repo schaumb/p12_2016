@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/Resources/public/css/style.css">
 
     <script src="/Resources/public/js/jquery-2.1.4.min.js"></script>
+    
+    <script><?php echo $script ?></script>
 </head>
 <body>
     <?php echo $body ?>

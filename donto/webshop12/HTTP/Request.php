@@ -13,8 +13,13 @@ class Request
     
     public function getRoute()
     {
-        //$route = substr($this->requestUri, strpos(substr($this->requestUri, 0, -(strlen($this->queryString) + 1)), ".php") + 4);
-        $route = $this->requestUri;
+        $questionmark = strpos($this->requestUri, "?");
+        $php = strpos($this->requestUri, ".php");
+
+        if($php !== false && $php < $questionmark)
+            $route = substr($this->requestUri, $php + 4);
+        else
+            $route = $this->requestUri;
 
         if(strlen($route) === 0)
             $route = "/";

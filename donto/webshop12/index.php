@@ -7,10 +7,13 @@ include_once("HTTP/Router.php");
 $DATABASE = new Database();
 $ROUTER = new Router();
 
+if(!$DATABASE->getConnection())
+    include_once("install.php");
+
+
 $controllerPHPs = scandir("Controller");
-foreach ($controllerPHPs as $controllerPHP)
-{
-    if(substr($controllerPHP, -4) == ".php")
+foreach ($controllerPHPs as $controllerPHP) {
+    if (substr($controllerPHP, -4) == ".php")
         include_once("Controller/" . $controllerPHP);
 }
 
