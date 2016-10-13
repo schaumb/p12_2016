@@ -6,5 +6,5 @@ function indexAction($request, Database &$db)
 {
     $products = $db->findAll("Product");
 
-    var_dump($products->fetchAll());
+    include_once("../Resources/layout.html.php");
 }
