@@ -1,1 +1,3 @@
-<?php echo "haha" ?>
+<?php
+
+include("index.php");
